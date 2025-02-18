@@ -1,35 +1,21 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter } from "react-router-dom";
+import "./App.css";
+import Routes from "./Routes";
+
+/**
+ * import.meta.glob() trả về các dynamic imports. Điều này có nghĩa là các module được tải theo cách bất đồng bộ (async), và cần phải xử lý chúng một cách phù hợp, phải sử dụng lazy (trong hàm useRoute đấy là lý do dùng lazy, mà dùng lazy thì BẮT BUỘC phải dùng Suspense)
+ */
+const pages = import.meta.glob("./pages/**/!(*.test.[jt]sx)*.([jt]sx)");
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="">
+      <h6>File System Based Router like NextJS - use ReactJS </h6>
+      <BrowserRouter>
+        <Routes pages={pages} />
+      </BrowserRouter>
+    </div>
+  );
 }
 
-export default App
+export default App;
